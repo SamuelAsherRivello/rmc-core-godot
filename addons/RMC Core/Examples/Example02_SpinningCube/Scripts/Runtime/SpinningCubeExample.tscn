@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0a5hygxat8rw"]
+
+[ext_resource type="Script" path="res://addons/RMC Core/Examples/Example02_SpinningCube/Scenes/SpinningCubeExample.cs" id="1_n0pkk"]
+
+[node name="SpinningCubeExample" type="Node3D" node_paths=PackedStringArray("_cube")]
+script = ExtResource("1_n0pkk")
+_cube = NodePath("CSGBox3D")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.24556)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.765163, 0.198812, 0.612372, 0.180057, 0.847101, -0.5, -0.618147, 0.492843, 0.612372, 0, 0, 0)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cmittoxbd7820"]
 
-[ext_resource type="Script" path="res://addons/RMC Core/Examples/Example01_Logger/Scenes/LoggerExample.cs" id="1_gm36j"]
+[ext_resource type="Script" path="res://addons/RMC Core/Examples/Example01_Logger/Scripts/Runtime/LoggerExample.cs" id="1_gm36j"]
 
 [node name="LoggerExample" type="Control"]
 layout_mode = 3

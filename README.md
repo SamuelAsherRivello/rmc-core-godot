@@ -61,15 +61,24 @@ Create your projects with confidence, performance, and scalability.
 |---|---|
 | <img src="./addons/RMC Core/Examples/Example01_Logger/Documentation/Screenshot.png" width="300"/> | <img src="./addons/RMC Core/Examples/Example01_Logger/Documentation/Diagram.png" width="300"/> |
 
+#### Example02_SpinningCube
+
+| Screenshot | Diagram |
+|---|---|
+| <img src="./addons/RMC Core/Examples/Example02_SpinningCube/Documentation/Screenshot.png" width="300"/> | <img src="./addons/RMC Core/Examples/Example02_SpinningCube/Documentation/Diagram.png" width="300"/> |
+
+
+
 
 <BR>
 <BR>
 
 ## Resources
 
-* Samuel Asher Rivello's Godot Portfolio - <a href="http://www.samuelasherrivello.com/best-practices">Godot — Articles, Repos, Tips</a>
-* Samuel Asher Rivello's Medium Article - <a href="https://sam-16930.medium.com/unity-project-structure-a694792cefed">Unity — Project Structure Best Practices</a>
-* Samuel Asher Rivello's Medium Article - <a href="https://sam-16930.medium.com/coding-standards-in-c-39aefee92db8">Unity — C# Coding Standards</a>
+* Samuel Asher Rivello's <a href="https://www.samuelasherrivello.com/godot-portfolio/">Godot Portfolio</a> - Articles, Repos, & Tips
+* Samuel Asher Rivello's <a href="https://github.com/SamuelAsherRivello/godot-project-template/">Godot Template</a> - Ideal starting point for new projects
+* Samuel Asher Rivello's <a href="https://sam-16930.medium.com/unity-project-structure-a694792cefed">Unity Article — Project Structure Best Practices</a> - Ideal setup
+* Samuel Asher Rivello's <a href="https://sam-16930.medium.com/coding-standards-in-c-39aefee92db8">Unity Article — C# Coding Standards</a> - Naming, conventions, more!
 
 <BR>
 <BR>

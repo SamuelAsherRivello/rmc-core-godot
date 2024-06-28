@@ -38,6 +38,10 @@ namespace RMC.Core.Utilities.Tests
             // GD.Print("AfterTestSuite");
         }
 
+        
+        
+        
+        
         // Methods ---------------------------------------
         [TestCase]
         public void Test_IsPathWithinResources_True()
@@ -49,6 +53,13 @@ namespace RMC.Core.Utilities.Tests
             AssertBool(result).IsTrue();
         }
 
+        
+        
+        
+        
+        
+        
+        
         [TestCase]
         public void Test_IsPathWithinResources_False()
         {
