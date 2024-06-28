@@ -16,11 +16,23 @@ Create your projects with confidence, performance, and scalability.
 
 * **Does NOT require** any autoload, interface, nor baseclass. 
 * **Compatible with** nodes, resources, and classes.
-* **Compatible with** GDScript, C#, and C++.
+* **Compatible with** GDScript, C#, and C++
 
 <BR>
+<BR>
 
-**Getting Started**
+# Table of Contents
+
+1. [Getting Started](#getting-started)
+1. [Examples](#examples)
+1. [Resources](#resources)
+1. [Credits](#credits)
+
+
+<BR>
+<BR>
+
+## Getting Started
 
 1. Download this repo (*.zip or *.git)
 1. Save repo as `[RepoName]`
@@ -36,39 +48,34 @@ Create your projects with confidence, performance, and scalability.
 1. Activate the plugin via `Godot Menu → Project → Project Settings → Plugins → [PluginName] → Enabled`
 1. Enjoy!
 
-<BR>
-
-# Table of Contents
-
-1. [Samples](#samples)
-1. [Credits](#credits)
-
 
 <BR>
-
----
-
 <BR>
 
-## Samples
+## Examples
 
 
 #### Example01_Logger
 
 | Screenshot | Diagram |
 |---|---|
-| <img src="./addons/RMC Core/Examples/Example01_Logger/Documentation/Screenshot.png" width="200"/> | <img src="./addons/RMC Core/Examples/Example01_Logger/Documentation/Diagram.png" width="200"/> |
+| <img src="./addons/RMC Core/Examples/Example01_Logger/Documentation/Screenshot.png" width="300"/> | <img src="./addons/RMC Core/Examples/Example01_Logger/Documentation/Diagram.png" width="300"/> |
 
 
 <BR>
+<BR>
 
----
+## Resources
 
+* Samuel Asher Rivello's Godot Portfolio - <a href="http://www.samuelasherrivello.com/best-practices">Godot — Articles, Repos, Tips</a>
+* Samuel Asher Rivello's Medium Article - <a href="https://sam-16930.medium.com/unity-project-structure-a694792cefed">Unity — Project Structure Best Practices</a>
+* Samuel Asher Rivello's Medium Article - <a href="https://sam-16930.medium.com/coding-standards-in-c-39aefee92db8">Unity — C# Coding Standards</a>
+
+<BR>
 <BR>
 
 
-
-### Credits
+## Credits
 
 **Creator**
 
