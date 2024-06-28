@@ -24,7 +24,7 @@ Create your projects with confidence, performance, and scalability.
 # Table of Contents
 
 1. [Getting Started](#getting-started)
-1. [Samples](#samples)
+1. [Examples](#examples)
 1. [Credits](#credits)
 
 
@@ -51,7 +51,7 @@ Create your projects with confidence, performance, and scalability.
 <BR>
 <BR>
 
-## Samples
+## Examples
 
 
 #### Example01_Logger
