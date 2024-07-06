@@ -1,18 +1,24 @@
 using System.Collections.Generic;
 using GdUnit4;
+using Godot;
 using static GdUnit4.Assertions;
 
+// ReSharper disable StaticMemberInitializerReferesToMemberBelow
 namespace RMC.Core.Utilities.Tests
 {
     [TestSuite]
     public partial class FileAccessUtilityTests
     {
         // Fields ----------------------------------------
-        private string workingPath = "res://addons/RMC Core/Library/Scripts/Runtime/RMC/Tests/Events/RmcEventTest.cs";
-        private string notWorkingPath = "res://addons/RMC Core/Library/Scripts/Runtime/RMC/Tests/Events/MissingABC123.cs";
-        private string workingName = "RmcEventTest.cs";
-        private string notWorkingName = "MissingABC123.cs";
+        private static string PathOfSuccess { get   {  return BasePath + FilenameOfSuccess; } }
+        private static string PathOfFailure { get   {  return BasePath + FilenameOfSuccess; } }
+        private static readonly string FilenameOfSuccess = "FileAccessUtilityTest.cs";
+        private static readonly string FilenameOfFailure = "ThisIsAMissingClass.cs";
 
+        //NOTE: If you move this file you may need to change this
+        private static readonly string BasePath = "res://addons/RMC Core/Library/Scripts/Tests/RMC/Core/Utilities/";
+        
+        
         // Initialization -------------------------------
         [Before]
         public void BeforeTestSuite()
@@ -39,32 +45,23 @@ namespace RMC.Core.Utilities.Tests
         }
 
         
-        
-        
-        
         // Methods ---------------------------------------
         [TestCase]
         public void Test_IsPathWithinResources_True()
         {
             // Arrange & Act
-            bool result = FileAccessUtility.IsPathWithinResources(workingPath);
+            bool result = FileAccessUtility.IsPathWithinResources(PathOfSuccess);
 
             // Assert
             AssertBool(result).IsTrue();
         }
 
         
-        
-        
-        
-        
-        
-        
         [TestCase]
         public void Test_IsPathWithinResources_False()
         {
             // Arrange & Act
-            bool result = FileAccessUtility.IsPathWithinResources(notWorkingPath);
+            bool result = FileAccessUtility.IsPathWithinResources(PathOfFailure);
 
             // Assert
             AssertBool(result).IsTrue(); // This test checks for the presence of "res://", which is in both paths
@@ -74,17 +71,17 @@ namespace RMC.Core.Utilities.Tests
         public void Test_FindFileOnceInResources_FileExists()
         {
             // Arrange & Act
-            string result = FileAccessUtility.FindFileOnceInResources(workingName);
+            string result = FileAccessUtility.FindFileOnceInResources(FilenameOfSuccess);
 
             // Assert
-            AssertString(result).IsEqual(workingPath);
+            AssertString(result).IsEqual(PathOfSuccess);
         }
 
         [TestCase]
         public void Test_FindFileOnceInResources_FileDoesNotExist()
         {
             // Arrange & Act
-            string result = FileAccessUtility.FindFileOnceInResources(notWorkingName);
+            string result = FileAccessUtility.FindFileOnceInResources(FilenameOfFailure);
 
             // Assert
             AssertString(result).IsEmpty();
@@ -100,15 +97,15 @@ namespace RMC.Core.Utilities.Tests
             // Here you might want to mock the found paths
             List<string> foundPaths = new List<string>
             {
-                workingPath,
+                PathOfSuccess,
                 "res://another/path/to/RmcEventTest.cs"
             };
 
             // Mock SearchFileRecursive to return foundPaths
-            FileAccessUtility.SearchFileRecursive("res://", workingName, foundPaths);
+            FileAccessUtility.SearchFileRecursive("res://", FilenameOfSuccess, foundPaths);
 
             // Assert
-            AssertString(foundPaths[0]).IsEqual(workingPath);
+            AssertString(foundPaths[0]).IsEqual(PathOfSuccess);
         }
     }
 }
