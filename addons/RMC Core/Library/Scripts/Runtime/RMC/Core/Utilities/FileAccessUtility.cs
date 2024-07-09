@@ -1,93 +1,112 @@
-using System;
-using Godot;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Godot;
 
 namespace RMC.Core.Utilities
 {
     public static class FileAccessUtility
     {
+        public static bool EnableLogging = false;
+        public static HashSet<string> BlacklistFolders = new HashSet<string> { "res://addons", "res://.godot" };
+
+        private static readonly ConcurrentDictionary<string, string> _fileCache = new ConcurrentDictionary<string, string>();
+        private static bool _isInitialized = false;
+
+        private static void Initialize()
+        {
+            if (_isInitialized) return;
+
+            if (EnableLogging) GD.Print($"[FileAccessUtility] Starting initialization at {Time.GetTicksMsec()}");
+            IndexAllFiles("res://");
+            _isInitialized = true;
+            if (EnableLogging) GD.Print($"[FileAccessUtility] Initialization complete at {Time.GetTicksMsec()} with {_fileCache.Count} files indexed.");
+        }
+
         public static bool IsPathWithinResources(string path)
         {
             return path.Contains("res://");
         }
-        
-        /// <summary>
-        /// Search for a fileName anywhere in the resources of the project.
-        /// Will throw error unless exactly ONE instance is found.
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
+
         public static string FindFileOnceInResources(string fileName)
         {
-            List<string> foundPaths = new List<string>();
-            SearchFileRecursive("res://", fileName, foundPaths);
-            
-            if (foundPaths.Count == 0)
+            if (!_isInitialized)
             {
-                GD.PrintErr($"LoadAsync() failed. Cannot find '{fileName}' anywhere in 'res://'.");
-                return String.Empty;
-            }
-            else if (foundPaths.Count > 1)
-            {
-                GD.Print($"LoadAsync() failed. Found {foundPaths.Count} instances of '{fileName}' in 'res://', but requires exactly 1.");
-                foreach (string path in foundPaths)
-                {
-                    GD.PrintErr(path);
-                }
-                return String.Empty;
+                Initialize();
             }
 
-            return NormalizePath(foundPaths[0]);
+            if (EnableLogging) GD.Print($"[FileAccessUtility] Starting search for {fileName} at {Time.GetTicksMsec()}");
+
+            if (_fileCache.TryGetValue(fileName, out string cachedPath))
+            {
+                if (EnableLogging) GD.Print($"[FileAccessUtility] Cache hit for {fileName} at {Time.GetTicksMsec()}");
+                return cachedPath;
+            }
+
+            if (EnableLogging) GD.PrintErr($"[FileAccessUtility] Failed to find {fileName} at {Time.GetTicksMsec()}");
+            return string.Empty;
         }
 
-        private static List<string> SearchFile(string rootPath, string fileName)
+        private static void IndexAllFiles(string rootPath)
         {
-            List<string> foundPaths = new List<string>();
-            SearchFileRecursive(rootPath, fileName, foundPaths);
-            return foundPaths;
-        }
+            var directoriesToSearch = new Queue<string>();
+            directoriesToSearch.Enqueue(rootPath);
 
-        public static void SearchFileRecursive(string currentPath, string fileName, List<string> foundPaths)
-        {
-            var dir = DirAccess.Open(currentPath);
-            if (dir == null)
+            while (directoriesToSearch.Count > 0)
             {
-                return;
-            }
+                string currentPath = directoriesToSearch.Dequeue();
 
-            dir.ListDirBegin();
-            string fileOrDirName;
+                if (IsBlacklisted(currentPath)) continue;
 
-            while ((fileOrDirName = dir.GetNext()) != "")
-            {
-                if (fileOrDirName == "." || fileOrDirName == "..")
+                var dir = DirAccess.Open(currentPath);
+
+                if (dir == null)
                 {
+                    if (EnableLogging) GD.PrintErr($"[FileAccessUtility] Failed to open directory: {currentPath}");
                     continue;
                 }
 
-                string fullPath = $"{currentPath}/{fileOrDirName}";
-                if (DirAccess.DirExistsAbsolute(fullPath))
+                dir.ListDirBegin();
+                string fileOrDirName;
+
+                while ((fileOrDirName = dir.GetNext()) != "")
                 {
-                    // Recursively search subfolders
-                    SearchFileRecursive(fullPath, fileName, foundPaths);
+                    if (fileOrDirName == "." || fileOrDirName == "..")
+                    {
+                        continue;
+                    }
+
+                    string fullPath = currentPath.PathJoin(fileOrDirName);
+
+                    if (DirAccess.DirExistsAbsolute(fullPath))
+                    {
+                        directoriesToSearch.Enqueue(fullPath);
+                    }
+                    else
+                    {
+                        _fileCache[fileOrDirName] = fullPath;
+                        if (EnableLogging) GD.Print($"[FileAccessUtility] Indexed {fullPath}");
+                    }
                 }
-                else if (fileOrDirName == fileName)
+
+                dir.ListDirEnd();
+            }
+        }
+
+        private static bool IsBlacklisted(string path)
+        {
+            foreach (var blacklistedFolder in BlacklistFolders)
+            {
+                if (path.StartsWith(blacklistedFolder))
                 {
-                    // File found
-                    foundPaths.Add(fullPath);
+                    return true;
                 }
             }
-
-            dir.ListDirEnd();
+            return false;
         }
 
         private static string NormalizePath(string path)
         {
-            while (path.Contains("///"))
-            {
-                path = path.Replace("///", "//");
-            }
-            return path;
+            return path.Replace("///", "//").Replace("//", "/");
         }
     }
 }
