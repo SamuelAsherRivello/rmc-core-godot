@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwa3u1c4aucxb"]
+
+[ext_resource type="Script" path="res://addons/RMC Core/Library/Scripts/Runtime/RMC/Core/Audio/AudioManager.cs" id="1_htwbn"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_htwbn")
+
+[node name="AudioStreamPlayer3D1" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AudioStreamPlayer3D3" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AudioStreamPlayer3D4" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AudioStreamPlayer3D5" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AudioStreamPlayer3D6" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AudioStreamPlayer3D7" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AudioStreamPlayer3D8" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AudioStreamPlayer3D9" type="AudioStreamPlayer3D" parent="."]
+
+[node name="AudioStreamPlayer3D10" type="AudioStreamPlayer3D" parent="."]
